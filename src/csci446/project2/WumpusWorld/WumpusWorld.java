@@ -9,7 +9,11 @@ import java.util.Random;
 public class WumpusWorld {
 
     private Cell[][] world;
+
     private Explorer explorer;
+    //Independently store state information
+    private ArrayList<State> states;
+
     private int playerStartX;
     private int playerStartY;
 
@@ -17,6 +21,8 @@ public class WumpusWorld {
     private ArrayList<Cell> pitCells;
     private ArrayList<Cell> wumpusCells;
     private ArrayList<Cell> emptyCells;
+
+    private ArrayList<Percept> queuedPercepts = new ArrayList<Percept>();
 
 
     public WumpusWorld(int size, double obstacleProbability, double pitProbability, double wumpusProbability) throws Exception {
@@ -58,6 +64,17 @@ public class WumpusWorld {
         Cell startCell = emptyCells.get(random.nextInt(emptyCells.size()));
         playerStartX = startCell.x;
         playerStartY = startCell.y;
+
+        //Create the start state.
+        State state = new State();
+        state.x = playerStartX;
+        state.y = playerStartY;
+        state.deaths = 0;
+        state.hasGold = false;
+        state.location = world[playerStartX][playerStartY];
+        state.remainingArrows = wumpusCells.size();
+
+        states.add(state);
     }
 
     public void attachAgent(Explorer explorer) {
@@ -68,11 +85,248 @@ public class WumpusWorld {
         for(int i = 0; i < world.length; i++) {
             for(int j = 0; j < world.length; j++) {
                 this.world[i][j].reset();
+                this.states = new ArrayList<State>();
             }
         }
     }
 
     public void simulate() {
+        while (!states.get(states.size() - 1).hasGold) {
+            ArrayList<Percept> percepts = new ArrayList<Percept>();
 
+            percepts.addAll(queuedPercepts);
+            queuedPercepts.clear();
+
+            Cell cell = states.get(states.size() - 1).location;
+
+            percepts.addAll(getPercepts(cell));
+
+            Action action = this.explorer.determineMove(percepts);
+
+            performAction(action);
+        }
+    }
+
+    private boolean inBounds(int x, int y) {
+        if(x < 0 || x > world.length - 1 || y < 0 || y > world.length - 1) {
+            return false;
+        }
+        return true;
+    }
+
+    private void performAction(Action action) {
+        State state = states.get(states.size() - 1).copy();
+        state.actionTaken = action;
+
+        if (action == Action.TurnLeft || action == Action.TurnRight) {
+            state.orientation = turn(action, state.orientation);
+            return;
+        }
+
+        if (action == Action.MoveForward) {
+            int nextX;
+            int nextY;
+
+            if(state.orientation == Orientation.North) {
+                nextX = state.x;
+                nextY = state.y + 1;
+            }
+            else if(state.orientation == Orientation.East) {
+                nextX = state.x + 1;
+                nextY = state.y;
+            }
+            else if(state.orientation == Orientation.South) {
+                nextX = state.x;
+                nextY = state.y - 1;
+            }
+            else {
+                nextX = state.x - 1;
+                nextY = state.y;
+            }
+
+            if(inBounds(nextX, nextY)) {
+                Cell cell = world[nextX][nextY];
+                if(cell.isPit) {
+                    state.deaths++;
+                    state.results.add(Result.FallInPit);
+
+                }
+                else if (cell.hasWumpus()) {
+                    state.deaths++;
+                    state.results.add(Result.DieByWumpus);
+                    state.x = nextX;
+                    state.y = nextY;
+                    state.location = world[nextX][nextY];
+                    cell.killWumpus();
+                } else if(cell.isObstacle) {
+                    queuedPercepts.add(Percept.Bump);
+                }
+                else {
+                    state.x = nextX;
+                    state.y = nextY;
+                    state.location = world[nextX][nextY];
+                }
+            } else {
+                queuedPercepts.add(Percept.Bump);
+            }
+        }
+
+        if(action == Action.PickUpGold) {
+            if(state.location.hasGold()) {
+                state.results.add(Result.PickUpGold);
+                state.hasGold = true;
+            }
+        }
+        if(action == Action.FireArrow) {
+            state.remainingArrows--;
+            if(state.orientation == Orientation.North) {
+                for(int i = state.y; i < world.length; i++) {
+                    if (world[state.x][i].isObstacle) {
+                        break;
+                    }
+                    if(world[state.x][i].hasWumpus()) {
+                        world[state.x][i].killWumpus();
+                        state.remainingArrows++;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    private Orientation turn(Action action, Orientation current) {
+        if(action == Action.TurnLeft) {
+            if(current == Orientation.North) {
+                return Orientation.West;
+            }
+            if(current == Orientation.East) {
+                return Orientation.North;
+            }
+            if(current == Orientation.South) {
+                return Orientation.East;
+            }
+            if(current == Orientation.West) {
+                return Orientation.South;
+            }
+        }
+        else {
+            if(current == Orientation.North) {
+                return Orientation.East;
+            }
+            if(current == Orientation.East) {
+                return Orientation.South;
+            }
+            if(current == Orientation.South) {
+                return Orientation.West;
+            }
+            if(current == Orientation.West) {
+                return Orientation.North;
+            }
+        }
+        //No orientation change.
+        return current;
+    }
+
+    private ArrayList<Percept> getPercepts(Cell cell) {
+        ArrayList<Percept> list = new ArrayList<Percept>();
+        int x = cell.x;
+        int y = cell.y;
+        //Check top-left cell
+        //if(inBounds(x-1, y+1)) {
+        //    if(world[x-1][y+1].isPit) {
+        //        list.add(Percept.Breeze);
+        //    }
+        //    if(world[x-1][y+1].hasWumpus()) {
+        //        list.add(Percept.Smell);
+        //    }
+        //    if(world[x-1][y+1].hasGold()) {
+        //        list.add(Percept.Twinkle);
+        //    }
+        //}
+        //Check top cell
+        if(inBounds(x, y+1)) {
+            if(world[x][y+1].isPit) {
+                list.add(Percept.Breeze);
+            }
+            if(world[x][y+1].hasWumpus()) {
+                list.add(Percept.Smell);
+            }
+            if(world[x][y+1].hasGold()) {
+                list.add(Percept.Twinkle);
+            }
+        }
+        //Check top right cell
+        //if(inBounds(x+1, y+1)) {
+        //    if(world[x+1][y+1].isPit) {
+        //        list.add(Percept.Breeze);
+        //    }
+        //    if(world[x+1][y+1].hasWumpus()) {
+        //        list.add(Percept.Smell);
+        //    }
+        //    if(world[x+1][y+1].hasGold()) {
+        //        list.add(Percept.Twinkle);
+        //    }
+        //}
+        //Check right cell
+        if(inBounds(x+1, y)) {
+            if(world[x+1][y].isPit) {
+                list.add(Percept.Breeze);
+            }
+            if(world[x+1][y].hasWumpus()) {
+                list.add(Percept.Smell);
+            }
+            if(world[x+1][y].hasGold()) {
+                list.add(Percept.Twinkle);
+            }
+        }
+        //Check bottom right cell
+        //if(inBounds(x+1, y-1)) {
+        //    if(world[x+1][y-1].isPit) {
+        //        list.add(Percept.Breeze);
+        //    }
+        //    if(world[x+1][y-1].hasWumpus()) {
+        //        list.add(Percept.Smell);
+        //    }
+        //    if(world[x+1][y-1].hasGold()) {
+        //        list.add(Percept.Twinkle);
+        //    }
+        //}
+        //Check bottom cell
+        if(inBounds(x, y-1)) {
+            if(world[x][y-1].isPit) {
+                list.add(Percept.Breeze);
+            }
+            if(world[x][y-1].hasWumpus()) {
+                list.add(Percept.Smell);
+            }
+            if(world[x][y-1].hasGold()) {
+                list.add(Percept.Twinkle);
+            }
+        }
+        //Check bottom left cell
+        //if(inBounds(x-1, y-1)) {
+        //    if(world[x-1][y-1].isPit) {
+        //        list.add(Percept.Breeze);
+        //    }
+        //    if(world[x-1][y-1].hasWumpus()) {
+        //        list.add(Percept.Smell);
+        //    }
+        //    if(world[x-1][y-1].hasGold()) {
+        //        list.add(Percept.Twinkle);
+        //    }
+        //}
+        //Check left cell
+        if(inBounds(x-1, y)) {
+            if(world[x-1][y].isPit) {
+                list.add(Percept.Breeze);
+            }
+            if(world[x-1][y].hasWumpus()) {
+                list.add(Percept.Smell);
+            }
+            if(world[x-1][y].hasGold()) {
+                list.add(Percept.Twinkle);
+            }
+        }
+        return list;
     }
 }
