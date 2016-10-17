@@ -10,11 +10,33 @@ import java.util.ArrayList;
  * Created by cetho on 10/11/2016.
  */
 public class KnowledgeExplorer implements Explorer {
+
+    private KnowledgeBase kb;
+    private int t;
+
+    public KnowledgeExplorer() {
+        kb = new KnowledgeBase();
+        t = 0;
+    }
+
     public Action determineMove(ArrayList<Percept> percepts) {
-        //Just return a random action, or pick up the gold if it's there.
-        if(percepts.contains(Percept.Twinkle)) {
-            return Action.PickUpGold;
-        }
-        return Action.values()[(int) (Math.random()* 4)];
+        kb.tell(makePerceptSentence(percepts));
+        Action action = kb.ask(makeActionQuery());
+        kb.tell(makeActionSentence(action));
+
+        t++;
+
+        return action;
+    }
+
+    public Sentence makePerceptSentence(ArrayList<Percept> percepts) {
+        return new Sentence();
+    }
+
+    public Sentence makeActionSentence(Action action) {
+        return new Sentence();
+    }
+    public Query makeActionQuery() {
+        return new Query();
     }
 }

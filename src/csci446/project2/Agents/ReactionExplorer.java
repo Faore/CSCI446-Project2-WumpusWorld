@@ -11,10 +11,13 @@ import java.util.ArrayList;
  */
 public class ReactionExplorer implements Explorer {
     public Action determineMove(ArrayList<Percept> percepts) {
-        //Just return a random action, or pick up the gold if it's there.
+        //We found the gold.
         if(percepts.contains(Percept.Twinkle)) {
             return Action.PickUpGold;
         }
-        return Action.values()[(int) (Math.random()* 4)];
+        if(percepts.contains(Percept.Bump)) {
+
+        }
+        return Action.MoveForward;
     }
 }

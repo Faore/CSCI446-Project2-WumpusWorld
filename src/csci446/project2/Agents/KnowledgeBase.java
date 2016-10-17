@@ -1,5 +1,6 @@
 package csci446.project2.Agents;
 
+import csci446.project2.WumpusWorld.Action;
 import csci446.project2.WumpusWorld.Explorer;
 
 /**
@@ -7,4 +8,12 @@ import csci446.project2.WumpusWorld.Explorer;
  */
 public class KnowledgeBase {
 
+    public void tell(Sentence sentence) {
+
+    }
+
+    public Action ask(Query query) {
+        //Skeleton
+        return Action.MoveForward;
+    }
 }
