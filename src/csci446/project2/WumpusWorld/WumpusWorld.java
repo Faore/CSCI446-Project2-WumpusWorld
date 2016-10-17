@@ -13,17 +13,16 @@ public class WumpusWorld {
     private Explorer explorer;
     //Independently store state information
     private ArrayList<State> states;
-
+    //Start Location
     private int playerStartX;
     private int playerStartY;
-
+    //Cells for reference.
     private ArrayList<Cell> obstacleCells;
     private ArrayList<Cell> pitCells;
     private ArrayList<Cell> wumpusCells;
     private ArrayList<Cell> emptyCells;
-
+    //Queued Percepts
     private ArrayList<Percept> queuedPercepts = new ArrayList<Percept>();
-
 
     public WumpusWorld(int size, double obstacleProbability, double pitProbability, double wumpusProbability) throws Exception {
         this.world = new Cell[size][size];
@@ -65,6 +64,8 @@ public class WumpusWorld {
         playerStartX = startCell.x;
         playerStartY = startCell.y;
 
+        this.states = new ArrayList<State>();
+
         //Create the start state.
         State state = new State();
         state.x = playerStartX;
@@ -85,9 +86,20 @@ public class WumpusWorld {
         for(int i = 0; i < world.length; i++) {
             for(int j = 0; j < world.length; j++) {
                 this.world[i][j].reset();
-                this.states = new ArrayList<State>();
             }
         }
+        this.states = new ArrayList<State>();
+
+        //Create the start state.
+        State state = new State();
+        state.x = playerStartX;
+        state.y = playerStartY;
+        state.deaths = 0;
+        state.hasGold = false;
+        state.location = world[playerStartX][playerStartY];
+        state.remainingArrows = wumpusCells.size();
+
+        states.add(state);
     }
 
     public void simulate() {
@@ -103,7 +115,7 @@ public class WumpusWorld {
 
             Action action = this.explorer.determineMove(percepts);
 
-            performAction(action);
+            performAction(percepts, action);
         }
     }
 
@@ -114,19 +126,23 @@ public class WumpusWorld {
         return true;
     }
 
-    private void performAction(Action action) {
+    private void performAction(ArrayList<Percept> givenPercepts, Action action) {
         State state = states.get(states.size() - 1).copy();
+        state.givenPercepts = givenPercepts;
         state.actionTaken = action;
 
         if (action == Action.TurnLeft || action == Action.TurnRight) {
             state.orientation = turn(action, state.orientation);
-            return;
+            //Each move costs 1 point.
+            state.penaltyScore--;
+            state.results.add(Result.OrientationChanged);
         }
 
         if (action == Action.MoveForward) {
             int nextX;
             int nextY;
-
+            //Each move costs 1 point.
+            state.penaltyScore--;
             if(state.orientation == Orientation.North) {
                 nextX = state.x;
                 nextY = state.y + 1;
@@ -148,38 +164,49 @@ public class WumpusWorld {
                 Cell cell = world[nextX][nextY];
                 if(cell.isPit) {
                     state.deaths++;
+                    state.penaltyScore -= 1000;
                     state.results.add(Result.FallInPit);
-
                 }
                 else if (cell.hasWumpus()) {
                     state.deaths++;
+                    state.penaltyScore -= 1000;
                     state.results.add(Result.DieByWumpus);
                     state.x = nextX;
                     state.y = nextY;
                     state.location = world[nextX][nextY];
                     cell.killWumpus();
-                } else if(cell.isObstacle) {
+                }
+                else if(cell.isObstacle) {
+                    state.results.add(Result.BumpIntoWall);
                     queuedPercepts.add(Percept.Bump);
                 }
                 else {
                     state.x = nextX;
                     state.y = nextY;
                     state.location = world[nextX][nextY];
+                    state.results.add(Result.SuccessfulMove);
                 }
             } else {
+                state.results.add(Result.BumpIntoWall);
                 queuedPercepts.add(Percept.Bump);
             }
         }
 
         if(action == Action.PickUpGold) {
+            state.penaltyScore--;
             if(state.location.hasGold()) {
                 state.results.add(Result.PickUpGold);
                 state.hasGold = true;
+                state.penaltyScore += 1000;
+            } else {
+                state.results.add(Result.FailToPickUpGold);
             }
         }
         if(action == Action.FireArrow) {
             state.remainingArrows--;
+            state.penaltyScore -= 10;
             if(state.orientation == Orientation.North) {
+                state.results.add(Result.MissArrow);
                 for(int i = state.y; i < world.length; i++) {
                     if (world[state.x][i].isObstacle) {
                         break;
@@ -187,10 +214,37 @@ public class WumpusWorld {
                     if(world[state.x][i].hasWumpus()) {
                         world[state.x][i].killWumpus();
                         state.remainingArrows++;
+                        state.penaltyScore += 10;
+                        state.results.remove(Result.MissArrow);
+                        state.results.add(Result.KillWumpus);
                         break;
                     }
                 }
             }
+        }
+        this.states.add(state);
+
+        if(csci446.project2.Main.showStates) {
+            System.out.println("WumpusWorld State Change:");
+
+            System.out.print("\tGiven Percepts: ");
+            for( Percept percept : state.givenPercepts) {
+                System.out.print(percept + ", ");
+            }
+            System.out.println();
+
+            System.out.println("\tAction Taken: " + state.actionTaken);
+
+            System.out.print("\tResults: ");
+            for( Result result : state.results) {
+                System.out.print(result + ", ");
+            }
+            System.out.println();
+
+            System.out.println("\tLocation: (" + state.x + ", " + state.y + ")");
+            System.out.println("\tOrientation: " + state.orientation);
+
+            System.out.println("\tPenalty Function Score: " + state.penaltyScore);
         }
     }
 

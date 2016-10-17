@@ -18,6 +18,9 @@ public class State {
     protected Action actionTaken;
 
     protected ArrayList<Result> results = new ArrayList<Result>();
+    protected ArrayList<Percept> givenPercepts = new ArrayList<Percept>();
+
+    protected int penaltyScore = 0;
 
     protected State copy() {
         State state = new State();
@@ -28,6 +31,7 @@ public class State {
         state.orientation = orientation;
         state.hasGold = hasGold;
         state.deaths = deaths;
+        state.penaltyScore = penaltyScore;
 
         return state;
 
