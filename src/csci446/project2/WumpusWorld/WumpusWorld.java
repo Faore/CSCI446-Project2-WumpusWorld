@@ -9,6 +9,7 @@ import java.util.Random;
 public class WumpusWorld {
 
     private Cell[][] world;
+    private String[][] kb;
 
     private Explorer explorer;
     //Independently store state information
@@ -26,6 +27,7 @@ public class WumpusWorld {
 
     public WumpusWorld(int size, double obstacleProbability, double pitProbability, double wumpusProbability) throws Exception {
         this.world = new Cell[size][size];
+        this.kb = new String[size][size];
         if(obstacleProbability + pitProbability + wumpusProbability >= 1) {
             throw new Exception("Invalid probabilities.");
         }
@@ -230,6 +232,14 @@ public class WumpusWorld {
             System.out.print("\tGiven Percepts: ");
             for( Percept percept : state.givenPercepts) {
                 System.out.print(percept + ", ");
+                if(kb[state.x][state.y] == null){
+                kb[state.x][state.y] = "" + percept;    
+                }
+                else{
+                kb[state.x][state.y] = kb[state.x][state.y] + " " + percept;
+                }
+                
+                System.out.println("--------> " + kb[state.x][state.y]);
             }
             System.out.println();
 
