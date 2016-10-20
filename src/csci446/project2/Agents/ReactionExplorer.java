@@ -1,6 +1,6 @@
 package csci446.project2.Agents;
 
-import csci446.project2.WumpusWorld.Action;
+import csci446.project2.Util.Action;
 import csci446.project2.WumpusWorld.Explorer;
 import csci446.project2.WumpusWorld.Percept;
 

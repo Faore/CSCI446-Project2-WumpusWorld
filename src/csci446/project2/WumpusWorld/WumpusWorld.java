@@ -1,5 +1,10 @@
 package csci446.project2.WumpusWorld;
 
+import csci446.project2.Util.Action;
+import csci446.project2.Util.LocationCalc;
+import csci446.project2.Util.Orientation;
+import csci446.project2.Util.Pair;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -8,14 +13,16 @@ import java.util.Random;
  */
 public class WumpusWorld {
 
+    public final int worldSize;
+
     private Cell[][] world;
 
     private Explorer explorer;
     //Independently store state information
     private ArrayList<State> states;
     //Start Location
-    private int playerStartX;
-    private int playerStartY;
+    public int playerStartX;
+    public int playerStartY;
     //Cells for reference.
     private ArrayList<Cell> obstacleCells;
     private ArrayList<Cell> pitCells;
@@ -25,6 +32,7 @@ public class WumpusWorld {
     private ArrayList<Percept> queuedPercepts = new ArrayList<Percept>();
 
     public WumpusWorld(int size, double obstacleProbability, double pitProbability, double wumpusProbability) throws Exception {
+        this.worldSize = size;
         this.world = new Cell[size][size];
         if(obstacleProbability + pitProbability + wumpusProbability >= 1) {
             throw new Exception("Invalid probabilities.");
@@ -119,7 +127,11 @@ public class WumpusWorld {
         }
     }
 
-    private boolean inBounds(int x, int y) {
+    public boolean inBounds(Pair<Integer, Integer> pair) {
+        return inBounds(pair.left, pair.right);
+    }
+
+    public boolean inBounds(int x, int y) {
         if(x < 0 || x > world.length - 1 || y < 0 || y > world.length - 1) {
             return false;
         }
@@ -132,7 +144,7 @@ public class WumpusWorld {
         state.actionTaken = action;
 
         if (action == Action.TurnLeft || action == Action.TurnRight) {
-            state.orientation = turn(action, state.orientation);
+            state.orientation = LocationCalc.NextOrientation(action, state.orientation);
             //Each move costs 1 point.
             state.penaltyScore--;
             state.results.add(Result.OrientationChanged);
@@ -143,22 +155,11 @@ public class WumpusWorld {
             int nextY;
             //Each move costs 1 point.
             state.penaltyScore--;
-            if(state.orientation == Orientation.North) {
-                nextX = state.x;
-                nextY = state.y + 1;
-            }
-            else if(state.orientation == Orientation.East) {
-                nextX = state.x + 1;
-                nextY = state.y;
-            }
-            else if(state.orientation == Orientation.South) {
-                nextX = state.x;
-                nextY = state.y - 1;
-            }
-            else {
-                nextX = state.x - 1;
-                nextY = state.y;
-            }
+
+            Pair<Integer, Integer> next = LocationCalc.NextLocation(state.x, state.y, state.orientation);
+
+            nextX = next.left;
+            nextY = next.right;
 
             if(inBounds(nextX, nextY)) {
                 Cell cell = world[nextX][nextY];
@@ -220,6 +221,52 @@ public class WumpusWorld {
                         break;
                     }
                 }
+            } else if(state.orientation == Orientation.East) {
+                state.results.add(Result.MissArrow);
+                for(int i = state.y; i < world.length; i++) {
+                    if (world[i][state.y].isObstacle) {
+                        break;
+                    }
+                    if(world[i][state.y].hasWumpus()) {
+                        world[i][state.y].killWumpus();
+                        state.remainingArrows++;
+                        state.penaltyScore += 10;
+                        state.results.remove(Result.MissArrow);
+                        state.results.add(Result.KillWumpus);
+                        break;
+                    }
+                }
+            } else if(state.orientation == Orientation.South) {
+                state.results.add(Result.MissArrow);
+                for(int i = state.y; i >= 0; i--) {
+                    if (world[state.x][i].isObstacle) {
+                        break;
+                    }
+                    if(world[state.x][i].hasWumpus()) {
+                        world[state.x][i].killWumpus();
+                        state.remainingArrows++;
+                        state.penaltyScore += 10;
+                        state.results.remove(Result.MissArrow);
+                        state.results.add(Result.KillWumpus);
+                        break;
+                    }
+                }
+            } else {
+                //West
+                state.results.add(Result.MissArrow);
+                for(int i = state.y; i >= 0; i--) {
+                    if (world[i][state.y].isObstacle) {
+                        break;
+                    }
+                    if(world[i][state.y].hasWumpus()) {
+                        world[i][state.y].killWumpus();
+                        state.remainingArrows++;
+                        state.penaltyScore += 10;
+                        state.results.remove(Result.MissArrow);
+                        state.results.add(Result.KillWumpus);
+                        break;
+                    }
+                }
             }
         }
         this.states.add(state);
@@ -248,55 +295,10 @@ public class WumpusWorld {
         }
     }
 
-    private Orientation turn(Action action, Orientation current) {
-        if(action == Action.TurnLeft) {
-            if(current == Orientation.North) {
-                return Orientation.West;
-            }
-            if(current == Orientation.East) {
-                return Orientation.North;
-            }
-            if(current == Orientation.South) {
-                return Orientation.East;
-            }
-            if(current == Orientation.West) {
-                return Orientation.South;
-            }
-        }
-        else {
-            if(current == Orientation.North) {
-                return Orientation.East;
-            }
-            if(current == Orientation.East) {
-                return Orientation.South;
-            }
-            if(current == Orientation.South) {
-                return Orientation.West;
-            }
-            if(current == Orientation.West) {
-                return Orientation.North;
-            }
-        }
-        //No orientation change.
-        return current;
-    }
-
     private ArrayList<Percept> getPercepts(Cell cell) {
         ArrayList<Percept> list = new ArrayList<Percept>();
         int x = cell.x;
         int y = cell.y;
-        //Check top-left cell
-        //if(inBounds(x-1, y+1)) {
-        //    if(world[x-1][y+1].isPit) {
-        //        list.add(Percept.Breeze);
-        //    }
-        //    if(world[x-1][y+1].hasWumpus()) {
-        //        list.add(Percept.Smell);
-        //    }
-        //    if(world[x-1][y+1].hasGold()) {
-        //        list.add(Percept.Twinkle);
-        //    }
-        //}
         //Check top cell
         if(inBounds(x, y+1)) {
             if(world[x][y+1].isPit) {
@@ -309,18 +311,6 @@ public class WumpusWorld {
                 list.add(Percept.Twinkle);
             }
         }
-        //Check top right cell
-        //if(inBounds(x+1, y+1)) {
-        //    if(world[x+1][y+1].isPit) {
-        //        list.add(Percept.Breeze);
-        //    }
-        //    if(world[x+1][y+1].hasWumpus()) {
-        //        list.add(Percept.Smell);
-        //    }
-        //    if(world[x+1][y+1].hasGold()) {
-        //        list.add(Percept.Twinkle);
-        //    }
-        //}
         //Check right cell
         if(inBounds(x+1, y)) {
             if(world[x+1][y].isPit) {
@@ -333,18 +323,6 @@ public class WumpusWorld {
                 list.add(Percept.Twinkle);
             }
         }
-        //Check bottom right cell
-        //if(inBounds(x+1, y-1)) {
-        //    if(world[x+1][y-1].isPit) {
-        //        list.add(Percept.Breeze);
-        //    }
-        //    if(world[x+1][y-1].hasWumpus()) {
-        //        list.add(Percept.Smell);
-        //    }
-        //    if(world[x+1][y-1].hasGold()) {
-        //        list.add(Percept.Twinkle);
-        //    }
-        //}
         //Check bottom cell
         if(inBounds(x, y-1)) {
             if(world[x][y-1].isPit) {
@@ -357,18 +335,6 @@ public class WumpusWorld {
                 list.add(Percept.Twinkle);
             }
         }
-        //Check bottom left cell
-        //if(inBounds(x-1, y-1)) {
-        //    if(world[x-1][y-1].isPit) {
-        //        list.add(Percept.Breeze);
-        //    }
-        //    if(world[x-1][y-1].hasWumpus()) {
-        //        list.add(Percept.Smell);
-        //    }
-        //    if(world[x-1][y-1].hasGold()) {
-        //        list.add(Percept.Twinkle);
-        //    }
-        //}
         //Check left cell
         if(inBounds(x-1, y)) {
             if(world[x-1][y].isPit) {
