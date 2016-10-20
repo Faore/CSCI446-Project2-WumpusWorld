@@ -20,7 +20,7 @@ public class Predicate {
 
     Example: IsSafe(X) where X is above the point being checked would be created as such:
 
-    new Predicate(Predicates.IsSafe, Orientation.North);
+    new Predicate(Predicates.IsSafe, Reference.North);
 
     */
 
