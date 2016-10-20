@@ -13,7 +13,7 @@ import csci446.project2.Util.Pair;
 public class Predicate {
     //Predicates are relative to cells.
     public final Predicates predicateType;
-    public final Orientation reference;
+    public final Reference reference;
 
     /*
     Predicates is the condition, reference references a cell in on of the cardinal directions of the cell being tested.
@@ -24,7 +24,7 @@ public class Predicate {
 
     */
 
-    public Predicate(Predicates p, Orientation reference) {
+    public Predicate(Predicates p, Reference reference) {
         this.predicateType = p;
         this.reference = reference;
     }
