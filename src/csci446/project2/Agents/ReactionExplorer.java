@@ -16,29 +16,26 @@ public class ReactionExplorer implements Explorer {
 
     private KnowledgeBase kb;
     private Engine engine;
-    private int count;
     private int fire = 0;
     private int randomNum;
     
-    public ReactionExplorer(WumpusWorld world) throws Exception {
+    public ReactionExplorer(WumpusWorld world) {
         kb = new KnowledgeBase(world);
         engine = new Engine(kb);
+
     }
     
-    @Override
+    
     public Action determineMove(ArrayList<Percept> percepts) {
-        //System.out.println(percepts);
-        if(count == 4){
-            randomNum = 1 + (int)(Math.random() * 100);
-        }
+        System.out.println(percepts);
+        //Used to help the agent turn
+        randomNum = 1 + (int)(Math.random() * 100);
         //We found the gold.
         if(percepts.contains(Percept.Twinkle)) {
-            //System.out.println("----------------------------------------------------");
             return Action.PickUpGold;
         }
-        //Fires an arrow if wumpus is detected
-        if(percepts.contains(Percept.Smell) && fire < 1){
-            fire = 1;
+        //Has a 5 percent chance to shot an arrow if a wumpus is detected. That's really just for fun.
+        if(percepts.contains(Percept.Smell) && randomNum < 5){
             return Action.FireArrow;
         }
         if(percepts.contains(Percept.Scream)){
@@ -46,12 +43,12 @@ public class ReactionExplorer implements Explorer {
         }
         //if bump, turn 90 degrees clock wise
         if(percepts.contains(Percept.Bump)) {
-            if(count < 4){
-            count = count + 1;}
-            
             return Action.TurnRight;
         }
-        if(randomNum < 25 && count == 4){
+        if(randomNum < 20){
+            return Action.TurnRight;
+        }
+        if(randomNum < 5){
             return Action.TurnLeft;
         }
         return Action.MoveForward;
