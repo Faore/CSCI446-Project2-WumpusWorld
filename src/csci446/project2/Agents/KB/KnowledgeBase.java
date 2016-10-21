@@ -36,9 +36,11 @@ public class KnowledgeBase {
 
 
     public KnowledgeBase(WumpusWorld world) {
-        //Store Knowledge at "Knowledge Cells" in a location-based array, and a list. Each cell has an ID to be identified for rule application.
+        //Store propositional Knowledge at "Knowledge Cells" for reference and debugging in a location-based array,
+        // and a list. Each cell has an ID to be identified for rule application.
         this.KBMap = new Cell[world.worldSize][world.worldSize];
         this.KBList = new Cell[world.worldSize*world.worldSize];
+        //Store First-Order facts in the FactsList
         this.facts = new FactsList();
 
         this.exploredCells = new ArrayList<Cell>();
@@ -141,7 +143,7 @@ public class KnowledgeBase {
             }
             loc.isWumpus = false;
             facts.add(Clause.fact(Predicate.NotWumpus, loc));
-            facts.remove(Predicate.NotWumpus, loc);
+            facts.remove(Predicate.Wumpus, loc);
             facts.removeAdjacent(Predicate.Stench, loc, KBMap);
         }
 
