@@ -95,6 +95,14 @@ public class KnowledgeBase {
             this.orientation = LocationCalc.NextOrientation(lastAction(), orientation);
         }
         Cell cur = KBMap[locationX][locationY];
+        unexploredCells.remove(cur);
+        exploredCells.remove(cur);
+        exploredCells.add(cur);
+        if(facts.find(Predicate.Safe, cur).size() > 0) {
+            //Its already marked.
+        } else {
+            facts.add(Clause.fact(Predicate.Safe, cur));
+        }
         for (Percept percept : percepts) {
             switch (percept) {
                 case Breeze:
