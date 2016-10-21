@@ -65,6 +65,7 @@ public class KnowledgeBase {
         unexploredCells.remove(KBMap[locationX][locationY]);
         //Mark the cell safe. I would argue the game isn't that mean.
         KBMap[locationX][locationY].safe = true;
+        facts.add(Clause.fact(Predicate.Safe, KBMap[locationX][locationY]));
     }
 
     public void addPercepts(ArrayList<Percept> percepts) {
