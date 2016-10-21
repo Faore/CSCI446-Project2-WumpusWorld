@@ -82,6 +82,7 @@ public class WumpusWorld {
         state.hasGold = false;
         state.location = world[playerStartX][playerStartY];
         state.remainingArrows = wumpusCells.size();
+        state.orientation = Orientation.North;
 
         states.add(state);
     }
