@@ -1,7 +1,5 @@
 package csci446.project2.Util;
 
-import csci446.project2.Agents.Inference.Reference;
-
 /**
  * Created by cetho on 10/20/2016.
  */
@@ -60,30 +58,5 @@ public class LocationCalc {
         }
         //No orientation change.
         return current;
-    }
-
-    public static Pair<Integer, Integer> ReferenceLocation(int curX, int curY, Reference orientation) {
-        int nextX;
-        int nextY;
-        if(orientation == Reference.North) {
-            nextX = curX;
-            nextY = curY + 1;
-        }
-        else if(orientation == Reference.East) {
-            nextX = curX + 1;
-            nextY = curY;
-        }
-        else if(orientation == Reference.South) {
-            nextX = curX;
-            nextY = curY - 1;
-        }
-        else if(orientation == Reference.West) {
-            nextX = curX - 1;
-            nextY = curY;
-        } else {
-            nextX = curX;
-            nextY = curY;
-        }
-        return new Pair<Integer, Integer>(nextX, nextY);
     }
 }

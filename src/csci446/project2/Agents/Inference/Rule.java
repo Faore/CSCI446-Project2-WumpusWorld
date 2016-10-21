@@ -23,7 +23,10 @@ public class Rule {
 
     public final Predicate[] conditions;
 
-    public Rule(boolean negate, Predicate implication, ArrayList<Predicate> conditions ) {
+    public final Quantifier quantifier;
+
+    public Rule(Quantifier quantifier, Predicate implication, ArrayList<Predicate> conditions ) {
+        this.quantifier = quantifier;
         this.implication = implication;
         this.conditions = (Predicate[]) conditions.toArray();
     }
