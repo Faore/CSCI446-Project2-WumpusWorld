@@ -73,6 +73,8 @@ public class WumpusWorld {
         while(startCell.equals(goldCell)) {
             goldCell = emptyCells.get(random.nextInt(emptyCells.size()));
         }
+        goldCell.hasGold = true;
+        
         playerStartX = startCell.x;
         playerStartY = startCell.y;
 
