@@ -30,6 +30,8 @@ public class WumpusWorld {
     private ArrayList<Cell> emptyCells;
     //Queued Percepts
     private ArrayList<Percept> queuedPercepts = new ArrayList<Percept>();
+    //number of moves
+    int iterations;
 
     public WumpusWorld(int size, double obstacleProbability, double pitProbability, double wumpusProbability) throws Exception {
         this.worldSize = size;
@@ -118,10 +120,11 @@ public class WumpusWorld {
     }
 
     public void simulate() {
-        int iterations = 0;
+        iterations = 0;
         while (!states.get(states.size() - 1).hasGold && iterations < 50000) {
             ArrayList<Percept> percepts = new ArrayList<Percept>();
-
+            iterations++;
+            
             percepts.addAll(queuedPercepts);
             queuedPercepts.clear();
 
@@ -132,8 +135,8 @@ public class WumpusWorld {
             Action action = this.explorer.determineMove(percepts);
 
             performAction(percepts, action);
-
-            iterations++;
+            
+           
         }
     }
 
@@ -228,6 +231,7 @@ public class WumpusWorld {
                         state.penaltyScore += 10;
                         state.results.remove(Result.MissArrow);
                         state.results.add(Result.KillWumpus);
+                        queuedPercepts.add(Percept.Scream);
                         state.wumpusesKilled++;
                         break;
                     }
@@ -244,6 +248,7 @@ public class WumpusWorld {
                         state.penaltyScore += 10;
                         state.results.remove(Result.MissArrow);
                         state.results.add(Result.KillWumpus);
+                        queuedPercepts.add(Percept.Scream);
                         state.wumpusesKilled++;
                         break;
                     }
@@ -260,6 +265,7 @@ public class WumpusWorld {
                         state.penaltyScore += 10;
                         state.results.remove(Result.MissArrow);
                         state.results.add(Result.KillWumpus);
+                        queuedPercepts.add(Percept.Scream);
                         state.wumpusesKilled++;
                         break;
                     }
@@ -277,6 +283,7 @@ public class WumpusWorld {
                         state.penaltyScore += 10;
                         state.results.remove(Result.MissArrow);
                         state.results.add(Result.KillWumpus);
+                        queuedPercepts.add(Percept.Scream);
                         state.wumpusesKilled++;
                         break;
                     }
@@ -304,7 +311,12 @@ public class WumpusWorld {
 
             System.out.println("\tLocation: (" + state.x + ", " + state.y + ")");
             System.out.println("\tOrientation: " + state.orientation);
-
+            System.out.println();
+            
+            System.out.println("\tNumber of Deaths: " + state.deaths);
+            System.out.println("\tNumber of Wumpuses Killed: " + state.wumpusesKilled);
+            System.out.println("\tNumber of Remaining Arrows: " + state.remainingArrows);
+            System.out.println("\tNumber of Moves Made: " + iterations);
             System.out.println("\tPenalty Function Score: " + state.penaltyScore);
         }
     }
