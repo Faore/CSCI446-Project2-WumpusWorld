@@ -39,6 +39,7 @@ public class KnowledgeBase {
         //Store Knowledge at "Knowledge Cells" in a location-based array, and a list. Each cell has an ID to be identified for rule application.
         this.KBMap = new Cell[world.worldSize][world.worldSize];
         this.KBList = new Cell[world.worldSize*world.worldSize];
+        this.facts = new FactsList();
 
         this.exploredCells = new ArrayList<Cell>();
 
@@ -50,6 +51,8 @@ public class KnowledgeBase {
             for(int j = 0; j < KBMap.length; j++) {
                 this.KBMap[i][j] = new Cell(k,i,j);
                 this.KBList[this.KBMap[i][j].id] = this.KBMap[i][j];
+                //Build Adjacency Facts.
+                addAdjacencyFacts(this.KBMap[i][j]);
                 k++;
             }
         }
@@ -149,6 +152,39 @@ public class KnowledgeBase {
         }
         catch (NullPointerException e) {}
         return null;
+    }
+
+    public void addAdjacencyFacts(Cell cell) {
+        Cell adjNorth = null;
+        Cell adjSouth = null;
+        Cell adjEast = null;
+        Cell adjWest = null;
+
+        try {
+            adjNorth = KBMap[cell.x][cell.y + 1];
+        } catch (IndexOutOfBoundsException|NullPointerException e) {}
+        try {
+            adjSouth = KBMap[cell.x][cell.y - 1];
+        } catch (IndexOutOfBoundsException|NullPointerException e) {}
+        try {
+            adjEast = KBMap[cell.x + 1][cell.y];
+        } catch (IndexOutOfBoundsException|NullPointerException e) {}
+        try {
+            adjWest = KBMap[cell.x - 1][cell.y + 1];
+        } catch (IndexOutOfBoundsException|NullPointerException e) {}
+
+        if(adjNorth != null) {
+            facts.add(Clause.fact(Predicate.Below, cell, adjNorth));
+        }
+        if(adjSouth != null) {
+            facts.add(Clause.fact(Predicate.Above, cell, adjSouth));
+        }
+        if(adjEast != null) {
+            facts.add(Clause.fact(Predicate.LeftOf, cell, adjEast));
+        }
+        if(adjWest != null) {
+            facts.add(Clause.fact(Predicate.RightOf, cell, adjWest));
+        }
     }
 
 }

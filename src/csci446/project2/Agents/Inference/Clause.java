@@ -61,4 +61,7 @@ public class Clause {
     public static Clause fact(Predicate p, Cell cell) {
         return new Clause(p, new Variable(cell));
     }
+    public static Clause fact(Predicate p, Cell cell, Cell cell2) {
+        return new Clause(p, new Variable(cell), new Variable(cell2));
+    }
 }
