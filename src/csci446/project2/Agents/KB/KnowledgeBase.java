@@ -104,27 +104,25 @@ public class KnowledgeBase {
 
         if(lastAction() == Action.FireArrow && percepts.contains(Percept.Scream)) {
             //Track where the arrow should have hit and remove the wumpus.
+            Cell loc = null;
             if(orientation == Orientation.North) {
                 for(int i = locationY; i < KBMap.length; i++) {
                     if(KBMap[locationX][i].isWumpus) {
-                        KBMap[locationX][i].isWumpus = false;
-                        facts.add(Clause.fact(Predicate.NotWumpus, KBMap[locationX][i]));
+                        loc = KBMap[locationX][i];
                         break;
                     }
                 }
             } else if(orientation == Orientation.East) {
                 for(int i = locationY; i < KBMap.length; i++) {
                     if(KBMap[i][locationY].isWumpus) {
-                        KBMap[i][locationY].isWumpus = false;
-                        facts.add(Clause.fact(Predicate.NotWumpus, KBMap[i][locationY]));
+                        loc = KBMap[i][locationY];
                         break;
                     }
                 }
             } else if(orientation == Orientation.South) {
                 for(int i = locationY; i >= 0; i--) {
                     if(KBMap[locationX][i].isWumpus) {
-                        KBMap[locationX][i].isWumpus = false;
-                        facts.add(Clause.fact(Predicate.NotWumpus, KBMap[locationX][i]));
+                        loc = KBMap[locationX][i];
                         break;
                     }
                 }
@@ -132,12 +130,15 @@ public class KnowledgeBase {
                 //West
                 for(int i = locationY; i >= 0; i--) {
                     if(KBMap[i][locationY].isWumpus) {
-                        KBMap[i][locationY].isWumpus = false;
-                        facts.add(Clause.fact(Predicate.NotWumpus, KBMap[i][locationY]));
+                        loc = KBMap[i][locationY];
                         break;
                     }
                 }
             }
+            loc.isWumpus = false;
+            facts.add(Clause.fact(Predicate.NotWumpus, loc));
+            facts.remove(Predicate.NotWumpus, loc);
+            facts.removeAdjacent(Predicate.Stench, loc, KBMap);
         }
 
     }
