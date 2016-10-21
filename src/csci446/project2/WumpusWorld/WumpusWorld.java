@@ -231,6 +231,7 @@ public class WumpusWorld {
                         state.penaltyScore += 10;
                         state.results.remove(Result.MissArrow);
                         state.results.add(Result.KillWumpus);
+                        queuedPercepts.add(Percept.Scream);
                         state.wumpusesKilled++;
                         break;
                     }
@@ -247,6 +248,7 @@ public class WumpusWorld {
                         state.penaltyScore += 10;
                         state.results.remove(Result.MissArrow);
                         state.results.add(Result.KillWumpus);
+                        queuedPercepts.add(Percept.Scream);
                         state.wumpusesKilled++;
                         break;
                     }
@@ -263,6 +265,7 @@ public class WumpusWorld {
                         state.penaltyScore += 10;
                         state.results.remove(Result.MissArrow);
                         state.results.add(Result.KillWumpus);
+                        queuedPercepts.add(Percept.Scream);
                         state.wumpusesKilled++;
                         break;
                     }
@@ -280,6 +283,7 @@ public class WumpusWorld {
                         state.penaltyScore += 10;
                         state.results.remove(Result.MissArrow);
                         state.results.add(Result.KillWumpus);
+                        queuedPercepts.add(Percept.Scream);
                         state.wumpusesKilled++;
                         break;
                     }
@@ -311,7 +315,7 @@ public class WumpusWorld {
             
             System.out.println("\tNumber of Deaths: " + state.deaths);
             System.out.println("\tNumber of Wumpuses Killed: " + state.wumpusesKilled);
-            System.out.println("\tNumber of Remaining Arrows: " + state.wumpusesKilled);
+            System.out.println("\tNumber of Remaining Arrows: " + state.remainingArrows);
             System.out.println("\tNumber of Moves Made: " + iterations);
             System.out.println("\tPenalty Function Score: " + state.penaltyScore);
         }
