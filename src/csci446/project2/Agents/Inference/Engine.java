@@ -15,13 +15,13 @@ public class Engine {
     private ArrayList<Sentence> rules;
     private ArrayList<Clause> facts;
 
-    public Engine(KnowledgeBase kb) {
+    public Engine(KnowledgeBase kb) throws Exception {
         this.kb = kb;
         this.rules = Rules.generateRules();
         this.facts = kb.facts;
     }
 
-    public ArrayList<Clause> generateFacts() {
+    public ArrayList<Clause> generateFacts() throws Exception {
         //Run resolution for each rule with each cell. Slow but functional.
         ArrayList<Clause> facts = new ArrayList<Clause>();
         for (Cell cell : this.kb.KBList) {

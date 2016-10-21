@@ -17,7 +17,7 @@ public class KnowledgeExplorer implements Explorer {
     private KnowledgeBase kb;
     private Engine engine;
 
-    public KnowledgeExplorer(WumpusWorld world) {
+    public KnowledgeExplorer(WumpusWorld world) throws Exception {
         kb = new KnowledgeBase(world);
         engine = new Engine(kb);
     }

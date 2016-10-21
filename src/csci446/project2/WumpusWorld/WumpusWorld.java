@@ -19,7 +19,7 @@ public class WumpusWorld {
 
     private Explorer explorer;
     //Independently store state information
-    private ArrayList<State> states;
+    public ArrayList<State> states;
     //Start Location
     public int playerStartX;
     public int playerStartY;
@@ -112,7 +112,8 @@ public class WumpusWorld {
     }
 
     public void simulate() {
-        while (!states.get(states.size() - 1).hasGold) {
+        int iterations = 0;
+        while (!states.get(states.size() - 1).hasGold && iterations < 50000) {
             ArrayList<Percept> percepts = new ArrayList<Percept>();
 
             percepts.addAll(queuedPercepts);
@@ -125,6 +126,8 @@ public class WumpusWorld {
             Action action = this.explorer.determineMove(percepts);
 
             performAction(percepts, action);
+
+            iterations++;
         }
     }
 
@@ -219,6 +222,7 @@ public class WumpusWorld {
                         state.penaltyScore += 10;
                         state.results.remove(Result.MissArrow);
                         state.results.add(Result.KillWumpus);
+                        state.wumpusesKilled++;
                         break;
                     }
                 }
@@ -234,6 +238,7 @@ public class WumpusWorld {
                         state.penaltyScore += 10;
                         state.results.remove(Result.MissArrow);
                         state.results.add(Result.KillWumpus);
+                        state.wumpusesKilled++;
                         break;
                     }
                 }
@@ -249,6 +254,7 @@ public class WumpusWorld {
                         state.penaltyScore += 10;
                         state.results.remove(Result.MissArrow);
                         state.results.add(Result.KillWumpus);
+                        state.wumpusesKilled++;
                         break;
                     }
                 }
@@ -265,6 +271,7 @@ public class WumpusWorld {
                         state.penaltyScore += 10;
                         state.results.remove(Result.MissArrow);
                         state.results.add(Result.KillWumpus);
+                        state.wumpusesKilled++;
                         break;
                     }
                 }

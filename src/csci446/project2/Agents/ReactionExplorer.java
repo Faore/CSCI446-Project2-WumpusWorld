@@ -20,14 +20,14 @@ public class ReactionExplorer implements Explorer {
     private int fire = 0;
     private int randomNum;
     
-    public ReactionExplorer(WumpusWorld world) {
+    public ReactionExplorer(WumpusWorld world) throws Exception {
         kb = new KnowledgeBase(world);
         engine = new Engine(kb);
     }
     
     @Override
     public Action determineMove(ArrayList<Percept> percepts) {
-        System.out.println(percepts);
+        //System.out.println(percepts);
         if(count == 4){
             randomNum = 1 + (int)(Math.random() * 100);
         }

@@ -9,23 +9,24 @@ import java.util.ArrayList;
  * Created by cetho on 10/14/2016.
  */
 public class State {
-    protected int x;
-    protected int y;
-    protected Cell location;
-    protected int remainingArrows;
-    protected Orientation orientation;
+    public int x;
+    public int y;
+    public Cell location;
+    public int remainingArrows;
+    public Orientation orientation;
 
-    protected boolean hasGold;
-    protected int deaths;
+    public boolean hasGold;
+    public int deaths;
+    public int wumpusesKilled;
 
-    protected Action actionTaken;
+    public Action actionTaken;
 
-    protected ArrayList<Result> results = new ArrayList<Result>();
-    protected ArrayList<Percept> givenPercepts = new ArrayList<Percept>();
+    public ArrayList<Result> results = new ArrayList<Result>();
+    public ArrayList<Percept> givenPercepts = new ArrayList<Percept>();
 
-    protected int penaltyScore = 0;
+    public int penaltyScore = 0;
 
-    protected State copy() {
+    public State copy() {
         State state = new State();
         state.x = x;
         state.y = y;
@@ -35,6 +36,7 @@ public class State {
         state.hasGold = hasGold;
         state.deaths = deaths;
         state.penaltyScore = penaltyScore;
+        state.wumpusesKilled = wumpusesKilled;
 
         return state;
 
