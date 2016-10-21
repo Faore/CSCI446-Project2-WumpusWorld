@@ -25,8 +25,11 @@ public class Rule {
 
     public final Quantifier quantifier;
 
-    public Rule(Quantifier quantifier, Predicate implication, ArrayList<Predicate> conditions ) {
+    public final Variable quantifiedVariable;
+
+    public Rule(Quantifier quantifier, Variable quantifiedVariable, Predicate implication, ArrayList<Predicate> conditions ) {
         this.quantifier = quantifier;
+        this.quantifiedVariable = quantifiedVariable;
         this.implication = implication;
         this.conditions = (Predicate[]) conditions.toArray();
     }
