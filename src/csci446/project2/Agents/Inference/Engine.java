@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Engine {
 
     private KnowledgeBase kb;
-    private ArrayList<Rule> rules;
+    private ArrayList<Sentence> rules;
     private ArrayList<Clause> facts;
 
     public Engine(KnowledgeBase kb) {
@@ -28,14 +28,14 @@ public class Engine {
             //Clean rules for manipulation.
             this.rules = Rules.generateRules();
             //Attempt to resolve each rule, and take any facts it added and add them to the list.
-            for (Rule rule: this.rules) {
+            for (Sentence rule: this.rules) {
                 facts.addAll(resolveRule(rule, cell));
             }
         }
         return facts;
     }
 
-    public ArrayList<Clause> resolveRule(Rule rule, Cell implicant) {
+    public ArrayList<Clause> resolveRule(Sentence rule, Cell implicant) {
         ArrayList<Clause> facts = new ArrayList<Clause>();
 
         return facts;

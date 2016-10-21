@@ -145,7 +145,11 @@ public class KnowledgeBase {
     }
 
     public Action lastAction() {
-        return actionsTaken.get(actionsTaken.size() - 1);
+        try {
+            return actionsTaken.get(actionsTaken.size() - 1);
+        }
+        catch (NullPointerException e) {}
+        return null;
     }
 
 }
