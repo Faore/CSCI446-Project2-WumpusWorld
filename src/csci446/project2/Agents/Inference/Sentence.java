@@ -81,5 +81,6 @@ public class Sentence {
                 System.out.print(" " + operators.get(i) + " ");
             }
         }
+        System.out.println();
     }
 }

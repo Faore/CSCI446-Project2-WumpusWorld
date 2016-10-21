@@ -2,6 +2,7 @@ package csci446.project2;
 
 import csci446.project2.Agents.Inference.*;
 import csci446.project2.Agents.KnowledgeExplorer;
+import csci446.project2.Agents.ReactionExplorer;
 import csci446.project2.Agents.TestRandomExplorer;
 import csci446.project2.WumpusWorld.WumpusWorld;
 
@@ -34,8 +35,8 @@ public class Main {
         // 0% chance of each bad thing.
         WumpusWorld wumpusWorld = new WumpusWorld(5, 0, 0, 0);
         // Attach the agent to the world.
-        KnowledgeExplorer knowledgeExplorer = new KnowledgeExplorer(wumpusWorld);
-        wumpusWorld.attachAgent(knowledgeExplorer);
+        ReactionExplorer reactionExplorer = new ReactionExplorer(wumpusWorld);
+        wumpusWorld.attachAgent(reactionExplorer);
         // Simulate
         wumpusWorld.simulate();
     }
