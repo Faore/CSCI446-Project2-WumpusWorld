@@ -1,5 +1,6 @@
 package csci446.project2.Agents.KB;
 
+import csci446.project2.Agents.Inference.Clause;
 import csci446.project2.Util.LocationCalc;
 import csci446.project2.Util.Orientation;
 import csci446.project2.Util.Pair;
@@ -28,6 +29,8 @@ public class KnowledgeBase {
     public int locationY;
 
     public Orientation orientation;
+
+    public ArrayList<Clause> facts;
 
     public KnowledgeBase(WumpusWorld world) {
         //Store Knowledge at "Knowledge Cells" in a location-based array, and a list. Each cell has an ID to be identified for rule application.
