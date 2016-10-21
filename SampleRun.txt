@@ -1,0 +1,661 @@
+Test Results:
+	World Size: 5:
+		Test #1:
+			Reactive Agent:
+				Iterations: 262
+				Picked Up Gold: true
+				Penalty Function: -271
+				Deaths: 1
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #2:
+			Reactive Agent:
+				Iterations: 27
+				Picked Up Gold: true
+				Penalty Function: -1027
+				Deaths: 2
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #3:
+			Reactive Agent:
+				Iterations: 3557
+				Picked Up Gold: true
+				Penalty Function: -1198557
+				Deaths: 1196
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #4:
+			Reactive Agent:
+				Iterations: 71
+				Picked Up Gold: true
+				Penalty Function: -71
+				Deaths: 1
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #5:
+			Reactive Agent:
+				Iterations: 96
+				Picked Up Gold: true
+				Penalty Function: -96
+				Deaths: 1
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #6:
+			Reactive Agent:
+				Iterations: 25
+				Picked Up Gold: true
+				Penalty Function: -2025
+				Deaths: 3
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #7:
+			Reactive Agent:
+				Iterations: 5
+				Picked Up Gold: true
+				Penalty Function: 995
+				Deaths: 0
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #8:
+			Reactive Agent:
+				Iterations: 551
+				Picked Up Gold: true
+				Penalty Function: -166551
+				Deaths: 167
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #9:
+			Reactive Agent:
+				Iterations: 6
+				Picked Up Gold: true
+				Penalty Function: 994
+				Deaths: 0
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #10:
+			Reactive Agent:
+				Iterations: 23
+				Picked Up Gold: true
+				Penalty Function: 977
+				Deaths: 0
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+	World Size: 10:
+		Test #1:
+			Reactive Agent:
+				Iterations: 701
+				Picked Up Gold: true
+				Penalty Function: -191701
+				Deaths: 192
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #2:
+			Reactive Agent:
+				Iterations: 97
+				Picked Up Gold: true
+				Penalty Function: -14097
+				Deaths: 15
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #3:
+			Reactive Agent:
+				Iterations: 214
+				Picked Up Gold: true
+				Penalty Function: -4214
+				Deaths: 5
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #4:
+			Reactive Agent:
+				Iterations: 271
+				Picked Up Gold: true
+				Penalty Function: -74271
+				Deaths: 75
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #5:
+			Reactive Agent:
+				Iterations: 133
+				Picked Up Gold: true
+				Penalty Function: -1133
+				Deaths: 2
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #6:
+			Reactive Agent:
+				Iterations: 1061
+				Picked Up Gold: true
+				Penalty Function: -252079
+				Deaths: 252
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #7:
+			Reactive Agent:
+				Iterations: 389
+				Picked Up Gold: true
+				Penalty Function: -8398
+				Deaths: 9
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #8:
+			Reactive Agent:
+				Iterations: 111
+				Picked Up Gold: true
+				Penalty Function: -3111
+				Deaths: 4
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #9:
+			Reactive Agent:
+				Iterations: 308
+				Picked Up Gold: true
+				Penalty Function: -54308
+				Deaths: 55
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #10:
+			Reactive Agent:
+				Iterations: 260
+				Picked Up Gold: true
+				Penalty Function: -41260
+				Deaths: 42
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+	World Size: 15:
+		Test #1:
+			Reactive Agent:
+				Iterations: 20871
+				Picked Up Gold: true
+				Penalty Function: -3610905
+				Deaths: 3591
+				Wumpuses Killed: 2
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #2:
+			Reactive Agent:
+				Iterations: 22
+				Picked Up Gold: true
+				Penalty Function: -22
+				Deaths: 1
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #3:
+			Reactive Agent:
+				Iterations: 204
+				Picked Up Gold: true
+				Penalty Function: -35204
+				Deaths: 36
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #4:
+			Reactive Agent:
+				Iterations: 4232
+				Picked Up Gold: true
+				Penalty Function: -430230
+				Deaths: 427
+				Wumpuses Killed: 2
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #5:
+			Reactive Agent:
+				Iterations: 180
+				Picked Up Gold: true
+				Penalty Function: -26180
+				Deaths: 27
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #6:
+			Reactive Agent:
+				Iterations: 1279
+				Picked Up Gold: true
+				Penalty Function: -172288
+				Deaths: 172
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #7:
+			Reactive Agent:
+				Iterations: 46
+				Picked Up Gold: true
+				Penalty Function: -9046
+				Deaths: 10
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #8:
+			Reactive Agent:
+				Iterations: 398
+				Picked Up Gold: true
+				Penalty Function: -38407
+				Deaths: 39
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #9:
+			Reactive Agent:
+				Iterations: 173
+				Picked Up Gold: true
+				Penalty Function: -15182
+				Deaths: 16
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #10:
+			Reactive Agent:
+				Iterations: 4431
+				Picked Up Gold: true
+				Penalty Function: -422449
+				Deaths: 419
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+	World Size: 20:
+		Test #1:
+			Reactive Agent:
+				Iterations: 1249
+				Picked Up Gold: true
+				Penalty Function: -231257
+				Deaths: 231
+				Wumpuses Killed: 1
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #2:
+			Reactive Agent:
+				Iterations: 732
+				Picked Up Gold: true
+				Penalty Function: -89766
+				Deaths: 90
+				Wumpuses Killed: 2
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #3:
+			Reactive Agent:
+				Iterations: 4525
+				Picked Up Gold: true
+				Penalty Function: -797543
+				Deaths: 794
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #4:
+			Reactive Agent:
+				Iterations: 3982
+				Picked Up Gold: true
+				Penalty Function: -600000
+				Deaths: 597
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #5:
+			Reactive Agent:
+				Iterations: 458
+				Picked Up Gold: true
+				Penalty Function: -37456
+				Deaths: 38
+				Wumpuses Killed: 2
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #6:
+			Reactive Agent:
+				Iterations: 296
+				Picked Up Gold: true
+				Penalty Function: -88332
+				Deaths: 89
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #7:
+			Reactive Agent:
+				Iterations: 5
+				Picked Up Gold: true
+				Penalty Function: 995
+				Deaths: 0
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #8:
+			Reactive Agent:
+				Iterations: 2361
+				Picked Up Gold: true
+				Penalty Function: -471360
+				Deaths: 470
+				Wumpuses Killed: 1
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #9:
+			Reactive Agent:
+				Iterations: 3485
+				Picked Up Gold: true
+				Penalty Function: -576484
+				Deaths: 574
+				Wumpuses Killed: 1
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #10:
+			Reactive Agent:
+				Iterations: 172
+				Picked Up Gold: true
+				Penalty Function: -40181
+				Deaths: 41
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+	World Size: 25:
+		Test #1:
+			Reactive Agent:
+				Iterations: 439
+				Picked Up Gold: true
+				Penalty Function: -48456
+				Deaths: 49
+				Wumpuses Killed: 1
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #2:
+			Reactive Agent:
+				Iterations: 2419
+				Picked Up Gold: true
+				Penalty Function: -481436
+				Deaths: 480
+				Wumpuses Killed: 1
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #3:
+			Reactive Agent:
+				Iterations: 1006
+				Picked Up Gold: true
+				Penalty Function: -145006
+				Deaths: 145
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #4:
+			Reactive Agent:
+				Iterations: 1615
+				Picked Up Gold: true
+				Penalty Function: -251649
+				Deaths: 251
+				Wumpuses Killed: 2
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #5:
+			Reactive Agent:
+				Iterations: 6489
+				Picked Up Gold: true
+				Penalty Function: -523512
+				Deaths: 518
+				Wumpuses Killed: 4
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #6:
+			Reactive Agent:
+				Iterations: 168
+				Picked Up Gold: true
+				Penalty Function: -22168
+				Deaths: 23
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #7:
+			Reactive Agent:
+				Iterations: 998
+				Picked Up Gold: true
+				Penalty Function: -127007
+				Deaths: 127
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #8:
+			Reactive Agent:
+				Iterations: 1368
+				Picked Up Gold: true
+				Penalty Function: -216376
+				Deaths: 216
+				Wumpuses Killed: 1
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #9:
+			Reactive Agent:
+				Iterations: 402
+				Picked Up Gold: true
+				Penalty Function: -40401
+				Deaths: 41
+				Wumpuses Killed: 1
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+		Test #10:
+			Reactive Agent:
+				Iterations: 5408
+				Picked Up Gold: true
+				Penalty Function: -923444
+				Deaths: 919
+				Wumpuses Killed: 0
+			Knowledge Agent:
+				Iterations: 50000
+				Picked Up Gold: false
+				Penalty Function: 0
+				Deaths: 0
+				Wumpuses Killed: 0
+We were unable to successfully create a knowledge agent using first-order logic.
+We had trouble with resolution and unification in the inference engine.
+While, the knowledge agent still runs, it always returns null for a move.
+The knowledge base is still created and does store starting facts about the world, as well as a ruleset.
+They are just not evaluated and updated by the inference engine and no best actions are generated based on it.
