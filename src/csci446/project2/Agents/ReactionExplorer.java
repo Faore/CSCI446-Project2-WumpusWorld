@@ -39,7 +39,9 @@ public class ReactionExplorer implements Explorer {
         }
         //The print statement here sums it up nicely
         if(percepts.contains(Percept.Scream)){
+            System.out.println();
             System.out.println("Holy cow that actually worked!");
+            System.out.println();
         }
         //if bump, turn 90 degrees clock wise
         if(percepts.contains(Percept.Bump)) {
