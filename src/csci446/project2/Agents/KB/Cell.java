@@ -1,8 +1,5 @@
 package csci446.project2.Agents.KB;
 
-/**
- * Created by cetho on 10/20/2016.
- */
 public class Cell {
 
     //Percepts

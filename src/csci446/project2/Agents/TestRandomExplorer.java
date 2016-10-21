@@ -6,9 +6,6 @@ import csci446.project2.WumpusWorld.Percept;
 
 import java.util.ArrayList;
 
-/**
- * Created by cetho on 10/16/2016.
- */
 public class TestRandomExplorer implements Explorer {
 
     public Action determineMove(ArrayList<Percept> percepts) {

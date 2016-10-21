@@ -1,9 +1,5 @@
 package csci446.project2.Agents.Inference;
 
-/**
- * Created by cetho on 10/20/2016.
- */
-
 public class Clause {
     //Predicate are relative to cells.
     public final Predicate predicateType;

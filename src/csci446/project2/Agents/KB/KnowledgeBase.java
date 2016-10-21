@@ -11,9 +11,6 @@ import csci446.project2.WumpusWorld.WumpusWorld;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-/**
- * Created by cetho on 10/11/2016.
- */
 public class KnowledgeBase {
 
     public Cell[][] KBMap;

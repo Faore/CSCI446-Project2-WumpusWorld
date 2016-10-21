@@ -1,8 +1,5 @@
 package csci446.project2.Util;
 
-/**
- * Created by cetho on 10/20/2016.
- */
 public class LocationCalc {
 
     public static Pair<Integer, Integer> NextLocation(int curX, int curY, Orientation orientation) {

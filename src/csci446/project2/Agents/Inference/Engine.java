@@ -6,9 +6,6 @@ import csci446.project2.Util.Action;
 
 import java.util.ArrayList;
 
-/**
- * Created by cetho on 10/20/2016.
- */
 public class Engine {
 
     private KnowledgeBase kb;
@@ -36,7 +33,7 @@ public class Engine {
     }
 
     public ArrayList<Clause> resolveRule(Sentence rule, Cell implicant) {
-        ArrayList<Clause> facts = new ArrayList<Clause>();
+        ArrayList<Clause> facts = new ArrayList<>();
 
         return facts;
     }

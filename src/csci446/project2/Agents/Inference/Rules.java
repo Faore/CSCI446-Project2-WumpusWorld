@@ -2,9 +2,6 @@ package csci446.project2.Agents.Inference;
 
 import java.util.ArrayList;
 
-/**
- * Created by cetho on 10/20/2016.
- */
 public class Rules {
     public static ArrayList<Sentence> generateRules() throws Exception {
         ArrayList<Sentence> rules = new ArrayList<Sentence>();

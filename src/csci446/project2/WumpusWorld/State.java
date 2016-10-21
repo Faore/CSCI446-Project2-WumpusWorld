@@ -5,9 +5,6 @@ import csci446.project2.Util.Orientation;
 
 import java.util.ArrayList;
 
-/**
- * Created by cetho on 10/14/2016.
- */
 public class State {
     public int x;
     public int y;

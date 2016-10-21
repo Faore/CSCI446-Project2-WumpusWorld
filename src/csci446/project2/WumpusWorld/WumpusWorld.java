@@ -8,9 +8,6 @@ import csci446.project2.Util.Pair;
 import java.util.ArrayList;
 import java.util.Random;
 
-/**
- * Created by cetho on 10/11/2016.
- */
 public class WumpusWorld {
 
     public final int worldSize;
