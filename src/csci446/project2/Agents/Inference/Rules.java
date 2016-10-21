@@ -89,8 +89,8 @@ public class Rules {
         
         
         //same thing but with percepts
-        clauses.clear();
-        operators.clear();
+        clauses = new ArrayList<Clause>();
+        operators = new ArrayList<Operator>();
         
         implicant = new Clause(Predicate.Safe, spot, false);
         c1 = new Clause(Predicate.NotStench, spot, false);
@@ -107,65 +107,15 @@ public class Rules {
         //sentence.PrintSentence();
         rules.add(sentence);
 
-        
-        //Pits
-        //basic
-        //defines safe as safe, unsafe as unsafe, etc.
-//        clauses.clear();
-//        operators.clear();
-//        implicant = new Clause(Predicate.Safe, spot, false);
-//        Clause safe = new Clause(Predicate.NotPit, spot, false);
-//        clauses.add(safe);
-//        sentence = new Sentence(Quantifier.ForAll, spot, implicant, clauses, operators);
-//        rules.add(sentence);
-//        
-//        clauses.clear();
-//        operators.clear();
-//        implicant = new Clause(Predicate.Unsafe, spot, false);
-//        safe = new Clause(Predicate.Pit, spot, false);
-//        clauses.add(safe);
-//        sentence = new Sentence(Quantifier.ForAll, spot, implicant, clauses, operators);
-//        rules.add(sentence);
-//        
-//        clauses.clear();
-//        operators.clear();
-//        implicant = new Clause(Predicate.Safe, spot, false);
-//        safe = new Clause(Predicate.Safe, spot, false);
-//        clauses.add(safe);
-//        sentence = new Sentence(Quantifier.ForAll, spot, implicant, clauses, operators);
-//        rules.add(sentence);
-// 
-//        clauses.clear();
-//        operators.clear();
-//        implicant = new Clause(Predicate.Unsafe, spot, false);
-//        Clause notsafe = new Clause(Predicate.Unsafe, spot, false);
-//        clauses.add(notsafe);
-//        sentence = new Sentence(Quantifier.ForAll, spot, implicant, clauses, operators);
-//        rules.add(sentence);        
-//        
-//        clauses.clear();
-//        operators.clear();
-//        implicant = new Clause(Predicate.Breeze, spot, false);
-//        Clause breeze = new Clause(Predicate.Breeze, spot, false);
-//        clauses.add(breeze);
-//        sentence = new Sentence(Quantifier.ForAll, spot, implicant, clauses, operators);
-//        rules.add(sentence); 
-//        
-//        clauses.clear();
-//        operators.clear();
-//        implicant = new Clause(Predicate.NotBreeze, spot, false);
-//        Clause notbreeze = new Clause(Predicate.NotBreeze, spot, false);
-//        clauses.add(notbreeze);
-//        sentence = new Sentence(Quantifier.ForAll, spot, implicant, clauses, operators);
-//        rules.add(sentence); 
-        
-        clauses.clear();
-        operators.clear();
+        //Can't be represented with OR operators.
+        /*
+        clauses = new ArrayList<Clause>();
+        operators = new ArrayList<Operator>();
         implicant = new Clause(Predicate.Breeze, spot, false);
-        Clause north = new Clause(Predicate.Above.Pit, spot, false);
-        Clause south = new Clause(Predicate.Below.Pit, spot, false);
-        Clause east = new Clause(Predicate.RightOf.Pit, spot, false);
-        Clause west = new Clause(Predicate.LeftOf.Pit, spot, false);
+        Clause north = new Clause(Predicate.Above.Pit, new Variable(), spot, false);
+        Clause south = new Clause(Predicate.Below.Pit, new Variable(), spot, false);
+        Clause east = new Clause(Predicate.RightOf.Pit, new Variable(), spot, false);
+        Clause west = new Clause(Predicate.LeftOf.Pit, new Variable(), spot, false);
         clauses.add(north);
         clauses.add(south);
         clauses.add(east);
@@ -175,27 +125,53 @@ public class Rules {
         operators.add(Operator.OR);
         sentence = new Sentence(Quantifier.ForAll, spot, implicant, clauses, operators);
         rules.add(sentence);
-        
-        clauses.clear();
-        operators.clear();
+        */
+
+        clauses = new ArrayList<Clause>();
+        operators = new ArrayList<Operator>();
         implicant = new Clause(Predicate.NotBreeze, spot, false);
-        Clause notnorth = new Clause(Predicate.Above.NotPit, spot, false);
-        Clause notsouth = new Clause(Predicate.Below.NotPit, spot, false);
-        Clause noteast = new Clause(Predicate.RightOf.NotPit, spot, false);
-        Clause notwest = new Clause(Predicate.LeftOf.NotPit, spot, false);
-        clauses.add(notnorth);
-        clauses.add(notsouth);
-        clauses.add(noteast);
-        clauses.add(notwest);
+
+        Variable vn = new Variable();
+        Variable vs = new Variable();
+        Variable ve = new Variable();
+        Variable vw = new Variable();
+
+        Clause north = new Clause(Predicate.Above, vn, spot, false);
+        Clause south = new Clause(Predicate.Below, vs, spot, false);
+        Clause east = new Clause(Predicate.RightOf, ve, spot, false);
+        Clause west = new Clause(Predicate.LeftOf, vw, spot, false);
+
+        Clause npit = new Clause(Predicate.NotPit, vn);
+        Clause spit = new Clause(Predicate.NotPit, vs);
+        Clause epit = new Clause(Predicate.NotPit, ve);
+        Clause wpit = new Clause(Predicate.NotPit, vw);
+
+        clauses.add(north);
+        clauses.add(south);
+        clauses.add(east);
+        clauses.add(west);
+
+        clauses.add(npit);
+        clauses.add(spit);
+        clauses.add(epit);
+        clauses.add(wpit);
+
         operators.add(Operator.AND);
         operators.add(Operator.AND);
         operators.add(Operator.AND);
+        operators.add(Operator.AND);
+        operators.add(Operator.AND);
+        operators.add(Operator.AND);
+        operators.add(Operator.AND);
+
         sentence = new Sentence(Quantifier.ForAll, spot, implicant, clauses, operators);
         rules.add(sentence);
-        
+
+        /*
+        Unnecessary
         //pit north
-        clauses.clear();
-        operators.clear();
+        clauses = new ArrayList<Clause>();
+        operators = new ArrayList<Operator>();
         implicant = new Clause(Predicate.Above.Pit, spot, false);// north cell
         north = new Clause(Predicate.Breeze, spot, false); //not really north, but cell in question
         south = new Clause(Predicate.Below.NotPit, spot, false);
@@ -212,8 +188,8 @@ public class Rules {
         rules.add(sentence);
         
         //pit south
-        clauses.clear();
-        operators.clear();
+        clauses = new ArrayList<Clause>();
+        operators = new ArrayList<Operator>();
         implicant = new Clause(Predicate.Below.Pit, spot, false);// north cell
         south = new Clause(Predicate.Breeze, spot, false); //not really south, but cell in question
         north = new Clause(Predicate.Above.NotPit, spot, false);
@@ -231,13 +207,13 @@ public class Rules {
 
         
         //pit east
-        clauses.clear();
-        operators.clear();
-        implicant = new Clause(Predicate.LeftOf.Pit, spot, false);// east cell
-        east = new Clause(Predicate.Breeze, spot, false); //not really east, but cell in question
-        south = new Clause(Predicate.Below.NotPit, spot, false);
-        north = new Clause(Predicate.Above.NotPit, spot, false);
-        west = new Clause(Predicate.LeftOf.NotPit, spot, false);
+        clauses = new ArrayList<Clause>();
+        operators = new ArrayList<Operator>();
+        implicant = new Clause(Predicate.LeftOf.Pit, new Variable(), spot, false);// east cell
+        east = new Clause(Predicate.Breeze, new Variable(), spot, false); //not really east, but cell in question
+        south = new Clause(Predicate.Below.NotPit, new Variable(), spot, false);
+        north = new Clause(Predicate.Above.NotPit, new Variable(), spot, false);
+        west = new Clause(Predicate.LeftOf.NotPit, new Variable(), spot, false);
         clauses.add(notnorth);
         clauses.add(notsouth);
         clauses.add(noteast);
@@ -250,13 +226,13 @@ public class Rules {
         
         
         //pit west
-        clauses.clear();
-        operators.clear();
-        implicant = new Clause(Predicate.RightOf.Pit, spot, false);// west cell
-        west = new Clause(Predicate.Breeze, spot, false); //not really west, but cell in question
-        south = new Clause(Predicate.Below.NotPit, spot, false);
-        east = new Clause(Predicate.RightOf.NotPit, spot, false);
-        north = new Clause(Predicate.Above.NotPit, spot, false);
+        clauses = new ArrayList<Clause>();
+        operators = new ArrayList<Operator>();
+        implicant = new Clause(Predicate.RightOf.Pit, new Variable(), spot, false);// west cell
+        west = new Clause(Predicate.Breeze, new Variable(), spot, false); //not really west, but cell in question
+        south = new Clause(Predicate.Below.NotPit, new Variable(), spot, false);
+        east = new Clause(Predicate.RightOf.NotPit, new Variable(), spot, false);
+        north = new Clause(Predicate.Above.NotPit, new Variable(), spot, false);
         clauses.add(notnorth);
         clauses.add(notsouth);
         clauses.add(noteast);
@@ -266,49 +242,16 @@ public class Rules {
         operators.add(Operator.AND);
         sentence = new Sentence(Quantifier.ForAll, spot, implicant, clauses, operators);
         rules.add(sentence);
-        
-        //Wumpus
-        //basic
-        //defines safe as safe, unsafe as unsafe, etc.
-//        clauses.clear();
-//        operators.clear();
-//        implicant = new Clause(Predicate.Safe, spot, false);
-//        safe = new Clause(Predicate.NotWumpus, spot, false);
-//        clauses.add(safe);
-//        sentence = new Sentence(Quantifier.ForAll, spot, implicant, clauses, operators);
-//        rules.add(sentence);
-//        
-//        clauses.clear();
-//        operators.clear();
-//        implicant = new Clause(Predicate.Unsafe, spot, false);
-//        safe = new Clause(Predicate.Wumpus, spot, false);
-//        clauses.add(safe);
-//        sentence = new Sentence(Quantifier.ForAll, spot, implicant, clauses, operators);
-//        rules.add(sentence);
-//        
-//        clauses.clear();
-//        operators.clear();
-//        implicant = new Clause(Predicate.Stench, spot, false);
-//        Clause Stench = new Clause(Predicate.Stench, spot, false);
-//        clauses.add(Stench);
-//        sentence = new Sentence(Quantifier.ForAll, spot, implicant, clauses, operators);
-//        rules.add(sentence); 
-//        
-//        clauses.clear();
-//        operators.clear();
-//        implicant = new Clause(Predicate.NotStench, spot, false);
-//        Clause notStench = new Clause(Predicate.NotStench, spot, false);
-//        clauses.add(notStench);
-//        sentence = new Sentence(Quantifier.ForAll, spot, implicant, clauses, operators);
-//        rules.add(sentence); 
-        
-        clauses.clear();
-        operators.clear();
-        implicant = new Clause(Predicate.Stench, spot, false);
-        north = new Clause(Predicate.Above.Wumpus, spot, false);
-        south = new Clause(Predicate.Below.Wumpus, spot, false);
-        east = new Clause(Predicate.RightOf.Wumpus, spot, false);
-        west = new Clause(Predicate.LeftOf.Wumpus, spot, false);
+        */
+
+        /* Can't represent OR clauses.
+        clauses = new ArrayList<Clause>();
+        operators = new ArrayList<Operator>();
+        implicant = new Clause(Predicate.Stench, new Variable(), spot, false);
+        north = new Clause(Predicate.Above.Wumpus, new Variable(), spot, false);
+        south = new Clause(Predicate.Below.Wumpus, new Variable(), spot, false);
+        east = new Clause(Predicate.RightOf.Wumpus, new Variable(), spot, false);
+        west = new Clause(Predicate.LeftOf.Wumpus, new Variable(), spot, false);
         clauses.add(north);
         clauses.add(south);
         clauses.add(east);
@@ -318,27 +261,53 @@ public class Rules {
         operators.add(Operator.OR);
         sentence = new Sentence(Quantifier.ForAll, spot, implicant, clauses, operators);
         rules.add(sentence);
-        
-        clauses.clear();
-        operators.clear();
+        */
+
+        clauses = new ArrayList<Clause>();
+        operators = new ArrayList<Operator>();
         implicant = new Clause(Predicate.NotStench, spot, false);
-        notnorth = new Clause(Predicate.Above.NotWumpus, spot, false);
-        notsouth = new Clause(Predicate.Below.NotWumpus, spot, false);
-        noteast = new Clause(Predicate.RightOf.NotWumpus, spot, false);
-        notwest = new Clause(Predicate.LeftOf.NotWumpus, spot, false);
-        clauses.add(notnorth);
-        clauses.add(notsouth);
-        clauses.add(noteast);
-        clauses.add(notwest);
+
+        vn = new Variable();
+        vs = new Variable();
+        ve = new Variable();
+        vw = new Variable();
+
+        north = new Clause(Predicate.Above, vn, spot, false);
+        south = new Clause(Predicate.Below, vs, spot, false);
+        east = new Clause(Predicate.RightOf, ve, spot, false);
+        west = new Clause(Predicate.LeftOf, vw, spot, false);
+
+        npit = new Clause(Predicate.NotWumpus, vn);
+        spit = new Clause(Predicate.NotWumpus, vs);
+        epit = new Clause(Predicate.NotWumpus, ve);
+        wpit = new Clause(Predicate.NotWumpus, vw);
+
+
+        clauses.add(north);
+        clauses.add(south);
+        clauses.add(east);
+        clauses.add(west);
+
+        clauses.add(npit);
+        clauses.add(spit);
+        clauses.add(epit);
+        clauses.add(wpit);
+
         operators.add(Operator.AND);
         operators.add(Operator.AND);
         operators.add(Operator.AND);
+        operators.add(Operator.AND);
+        operators.add(Operator.AND);
+        operators.add(Operator.AND);
+        operators.add(Operator.AND);
+
         sentence = new Sentence(Quantifier.ForAll, spot, implicant, clauses, operators);
         rules.add(sentence);
-        
+
+        /* Unnecessary
         //Wumpus north
-        clauses.clear();
-        operators.clear();
+        clauses = new ArrayList<Clause>();
+        operators = new ArrayList<Operator>();
         implicant = new Clause(Predicate.Above.Wumpus, spot, false);// north cell
         north = new Clause(Predicate.Stench, spot, false); //not really north, but cell in question
         south = new Clause(Predicate.Below.NotWumpus, spot, false);
@@ -355,8 +324,8 @@ public class Rules {
         rules.add(sentence);
         
         //Wumpus south
-        clauses.clear();
-        operators.clear();
+        clauses = new ArrayList<Clause>();
+        operators = new ArrayList<Operator>();
         implicant = new Clause(Predicate.Below.Wumpus, spot, false);// north cell
         south = new Clause(Predicate.Stench, spot, false); //not really south, but cell in question
         north = new Clause(Predicate.Above.NotWumpus, spot, false);
@@ -374,8 +343,8 @@ public class Rules {
 
         
         //Wumpus east
-        clauses.clear();
-        operators.clear();
+        clauses = new ArrayList<Clause>();
+        operators = new ArrayList<Operator>();
         implicant = new Clause(Predicate.LeftOf.Wumpus, spot, false);// east cell
         east = new Clause(Predicate.Stench, spot, false); //not really east, but cell in question
         south = new Clause(Predicate.Below.NotWumpus, spot, false);
@@ -393,8 +362,8 @@ public class Rules {
         
         
         //Wumpus west
-        clauses.clear();
-        operators.clear();
+        clauses = new ArrayList<Clause>();
+        operators = new ArrayList<Operator>();
         implicant = new Clause(Predicate.RightOf.Wumpus, spot, false);// west cell
         west = new Clause(Predicate.Stench, spot, false); //not really west, but cell in question
         south = new Clause(Predicate.Below.NotWumpus, spot, false);
@@ -409,7 +378,7 @@ public class Rules {
         operators.add(Operator.AND);
         sentence = new Sentence(Quantifier.ForAll, spot, implicant, clauses, operators);
         rules.add(sentence);
-        
+        */
         
         
         return rules;
