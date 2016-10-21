@@ -74,7 +74,7 @@ public class WumpusWorld {
             goldCell = emptyCells.get(random.nextInt(emptyCells.size()));
         }
         goldCell.hasGold = true;
-        
+
         playerStartX = startCell.x;
         playerStartY = startCell.y;
 
@@ -313,6 +313,10 @@ public class WumpusWorld {
         ArrayList<Percept> list = new ArrayList<Percept>();
         int x = cell.x;
         int y = cell.y;
+
+        if(world[x][y].hasGold()) {
+            list.add(Percept.Twinkle);
+        }
         //Check top cell
         if(inBounds(x, y+1)) {
             if(world[x][y+1].isPit) {
@@ -320,9 +324,6 @@ public class WumpusWorld {
             }
             if(world[x][y+1].hasWumpus()) {
                 list.add(Percept.Smell);
-            }
-            if(world[x][y+1].hasGold()) {
-                list.add(Percept.Twinkle);
             }
         }
         //Check right cell
@@ -333,9 +334,6 @@ public class WumpusWorld {
             if(world[x+1][y].hasWumpus()) {
                 list.add(Percept.Smell);
             }
-            if(world[x+1][y].hasGold()) {
-                list.add(Percept.Twinkle);
-            }
         }
         //Check bottom cell
         if(inBounds(x, y-1)) {
@@ -345,9 +343,6 @@ public class WumpusWorld {
             if(world[x][y-1].hasWumpus()) {
                 list.add(Percept.Smell);
             }
-            if(world[x][y-1].hasGold()) {
-                list.add(Percept.Twinkle);
-            }
         }
         //Check left cell
         if(inBounds(x-1, y)) {
@@ -356,9 +351,6 @@ public class WumpusWorld {
             }
             if(world[x-1][y].hasWumpus()) {
                 list.add(Percept.Smell);
-            }
-            if(world[x-1][y].hasGold()) {
-                list.add(Percept.Twinkle);
             }
         }
         return list;
