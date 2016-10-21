@@ -27,7 +27,6 @@ public class ReactionExplorer implements Explorer {
     
     
     public Action determineMove(ArrayList<Percept> percepts) {
-        System.out.println(percepts);
         //Used to help the agent turn
         randomNum = 1 + (int)(Math.random() * 100);
         //We found the gold.
@@ -38,6 +37,7 @@ public class ReactionExplorer implements Explorer {
         if(percepts.contains(Percept.Smell) && randomNum < 5){
             return Action.FireArrow;
         }
+        //The print statement here sums it up nicely
         if(percepts.contains(Percept.Scream)){
             System.out.println("Holy cow that actually worked!");
         }
@@ -45,11 +45,12 @@ public class ReactionExplorer implements Explorer {
         if(percepts.contains(Percept.Bump)) {
             return Action.TurnRight;
         }
-        if(randomNum < 20){
-            return Action.TurnRight;
-        }
+        //With no other knowledge for the agent to go on, it will have to turn to eventually avoid obstacles. 
         if(randomNum < 5){
             return Action.TurnLeft;
+        }
+        if(randomNum < 20){
+            return Action.TurnRight;
         }
         return Action.MoveForward;
     }
