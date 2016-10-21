@@ -1,6 +1,8 @@
 package csci446.project2.Agents.KB;
 
 import csci446.project2.Agents.Inference.Clause;
+import csci446.project2.Agents.Inference.Predicate;
+import csci446.project2.Agents.Inference.Variable;
 import csci446.project2.Util.LocationCalc;
 import csci446.project2.Util.Orientation;
 import csci446.project2.Util.Pair;
@@ -30,7 +32,8 @@ public class KnowledgeBase {
 
     public Orientation orientation;
 
-    public ArrayList<Clause> facts;
+    public FactsList facts;
+
 
     public KnowledgeBase(WumpusWorld world) {
         //Store Knowledge at "Knowledge Cells" in a location-based array, and a list. Each cell has an ID to be identified for rule application.
@@ -62,7 +65,6 @@ public class KnowledgeBase {
     }
 
     public void addPercepts(ArrayList<Percept> percepts) {
-        Cell cur = KBMap[locationX][locationY];
         //Must always check for bump first, so that the percepts can be based on the correct location as well as movement and orientation changes.
         if(percepts.contains(Percept.Bump)) {
             /*
@@ -74,6 +76,8 @@ public class KnowledgeBase {
             Pair<Integer, Integer> bumpedLocation = LocationCalc.NextLocation(locationX, locationY, orientation);
             try {
                 KBMap[bumpedLocation.left][bumpedLocation.right].isObstacle = true;
+                Cell bumpedCell = KBMap[bumpedLocation.left][bumpedLocation.right];
+                facts.add(Clause.fact(Predicate.Obstacle, bumpedCell));
             } catch (IndexOutOfBoundsException exception) {}
 
         } else if(lastAction() == Action.MoveForward) {
@@ -84,14 +88,16 @@ public class KnowledgeBase {
         } else if(lastAction() == Action.TurnLeft || lastAction() == Action.TurnRight) {
             this.orientation = LocationCalc.NextOrientation(lastAction(), orientation);
         }
-
+        Cell cur = KBMap[locationX][locationY];
         for (Percept percept : percepts) {
             switch (percept) {
                 case Breeze:
                     cur.pBreeze = true;
+                    facts.add(Clause.fact(Predicate.Breeze, cur));
                     break;
                 case Smell:
                     cur.pStench = true;
+                    facts.add(Clause.fact(Predicate.Stench, cur));
                     break;
             }
         }
@@ -100,42 +106,34 @@ public class KnowledgeBase {
             //Track where the arrow should have hit and remove the wumpus.
             if(orientation == Orientation.North) {
                 for(int i = locationY; i < KBMap.length; i++) {
-                    if (KBMap[locationX][i].isObstacle) {
-                        break;
-                    }
                     if(KBMap[locationX][i].isWumpus) {
                         KBMap[locationX][i].isWumpus = false;
+                        facts.add(Clause.fact(Predicate.NotWumpus, KBMap[locationX][i]));
                         break;
                     }
                 }
             } else if(orientation == Orientation.East) {
                 for(int i = locationY; i < KBMap.length; i++) {
-                    if (KBMap[i][locationY].isObstacle) {
-                        break;
-                    }
                     if(KBMap[i][locationY].isWumpus) {
                         KBMap[i][locationY].isWumpus = false;
+                        facts.add(Clause.fact(Predicate.NotWumpus, KBMap[i][locationY]));
                         break;
                     }
                 }
             } else if(orientation == Orientation.South) {
                 for(int i = locationY; i >= 0; i--) {
-                    if (KBMap[locationX][i].isObstacle) {
-                        break;
-                    }
                     if(KBMap[locationX][i].isWumpus) {
                         KBMap[locationX][i].isWumpus = false;
+                        facts.add(Clause.fact(Predicate.NotWumpus, KBMap[locationX][i]));
                         break;
                     }
                 }
             } else {
                 //West
                 for(int i = locationY; i >= 0; i--) {
-                    if (KBMap[i][locationY].isObstacle) {
-                        break;
-                    }
                     if(KBMap[i][locationY].isWumpus) {
                         KBMap[i][locationY].isWumpus = false;
+                        facts.add(Clause.fact(Predicate.NotWumpus, KBMap[i][locationY]));
                         break;
                     }
                 }

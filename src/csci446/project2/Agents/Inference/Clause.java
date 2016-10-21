@@ -1,5 +1,7 @@
 package csci446.project2.Agents.Inference;
 
+import csci446.project2.Agents.KB.Cell;
+
 /**
  * Created by cetho on 10/20/2016.
  */
@@ -14,7 +16,7 @@ public class Clause {
     public final int variableCount;
 
     /*
-    Predicate is the condition, reference references a cell in on of the cardinal directions of the cell being tested.
+    Predicate is the condition.
 
     Example: IsSafe(X) where X is some being checked would be created as such:
 
@@ -32,6 +34,14 @@ public class Clause {
         this.negated = negated;
     }
 
+    public Clause(Predicate p, Variable variable) {
+        this.predicateType = p;
+        this.variable1 = variable;
+        this.variable2 = null;
+        this.variableCount = 1;
+        this.negated = false;
+    }
+
     public Clause(Predicate p, Variable variable1, Variable variable2, boolean negated) {
         this.predicateType = p;
         this.variable1 = variable1;
@@ -40,5 +50,15 @@ public class Clause {
         this.negated = negated;
     }
 
+    public Clause(Predicate p, Variable variable1, Variable variable2) {
+        this.predicateType = p;
+        this.variable1 = variable1;
+        this.variable2 = variable2;
+        this.variableCount = 2;
+        this.negated = false;
+    }
 
+    public static Clause fact(Predicate p, Cell cell) {
+        return new Clause(p, new Variable(cell));
+    }
 }
