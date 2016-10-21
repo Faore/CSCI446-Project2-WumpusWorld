@@ -30,7 +30,7 @@ public class Predicate {
     }
 
     public Cell relativeCell(Cell cell, KnowledgeBase kb) {
-        Pair<Integer, Integer> relativeLocation = LocationCalc.NextLocation(cell.x, cell.y, reference);
+        Pair<Integer, Integer> relativeLocation = LocationCalc.ReferenceLocation(cell.x, cell.y, reference);
         return kb.KBMap[relativeLocation.left][relativeLocation.right];
     }
 }
