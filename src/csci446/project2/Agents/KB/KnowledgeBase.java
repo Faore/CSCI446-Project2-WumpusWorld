@@ -16,6 +16,7 @@ import java.util.Arrays;
 public class KnowledgeBase {
 
     public Cell[][] KBMap;
+    boolean[][] safeCells;
 
     public Cell[] KBList;
 
@@ -109,6 +110,8 @@ public class KnowledgeBase {
                 case Smell:
                     cur.pStench = true;
                     facts.add(Clause.fact(Predicate.Stench, cur));
+                    break;
+                case Twinkle:
                     break;
             }
         }

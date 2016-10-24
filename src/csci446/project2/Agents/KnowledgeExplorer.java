@@ -13,10 +13,12 @@ public class KnowledgeExplorer implements Explorer {
 
     private KnowledgeBase kb;
     private Engine engine;
+    private WumpusWorld world;
 
     public KnowledgeExplorer(WumpusWorld world) throws Exception {
         kb = new KnowledgeBase(world);
         engine = new Engine(kb);
+        this.world = world;
     }
 
     @Override
@@ -24,13 +26,15 @@ public class KnowledgeExplorer implements Explorer {
         //Tell the KB everything we know.
         kb.addPercepts(percepts);
         //Tell the inference engine to see if it can learn anything new.
-
+        return engine.findBestMove();
         /*
         Tell the inference engine to generate a plan and gimme an action.
         I'm thinking I'll store the plan in the KB and have it iterate through the plan for each move,
         logging the percepts and then creating new facts. Then generate a new plan when the existing one is finished.
         This should help prevent plans from being constantly created and having the agent loop in something.
         */
-        return null;
+    }
+
+    private void updateKnowledge(){
     }
 }
