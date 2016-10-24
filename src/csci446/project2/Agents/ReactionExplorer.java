@@ -12,17 +12,17 @@ import java.util.ArrayList;
 public class ReactionExplorer implements Explorer {
 
     private KnowledgeBase kb;
-    private Engine engine;
+    //private Engine engine;
     private int fire = 0;
     private int randomNum;
     
     public ReactionExplorer(WumpusWorld world) throws Exception {
         kb = new KnowledgeBase(world);
-        engine = new Engine(kb);
+        //engine = new Engine(kb);
 
     }
     
-    
+    @Override
     public Action determineMove(ArrayList<Percept> percepts) {
         //Used to help the agent turn
         randomNum = 1 + (int)(Math.random() * 100);
@@ -36,10 +36,10 @@ public class ReactionExplorer implements Explorer {
         }
         //The print statement here sums it up nicely
         if(percepts.contains(Percept.Scream)){
-            System.out.println();
-            System.out.println("Holy cow that actually worked!");
-            System.out.println("      >>-'( X __ X )'-|>      ");
-            System.out.println();
+//            System.out.println();
+//            System.out.println("Holy cow that actually worked!");
+//            System.out.println("      >>-'( X __ X )'-|>      ");
+//            System.out.println();
         }
         //if bump, turn 90 degrees clock wise
         if(percepts.contains(Percept.Bump)) {
